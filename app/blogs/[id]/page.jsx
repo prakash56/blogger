@@ -3,25 +3,30 @@ import {assets, blog_data } from '@/Assets/assets';
 import Footer from '@/Components/Footer';
 import Image from 'next/image';
 import Link from 'next/link';
-import React , {useState,useEffect} from 'react'
+import React , {useState,useEffect, useCallback} from 'react'
 import axios from 'axios';
 
 const Page = ({params}) => {
 
     const [data,setData] =useState(null);
 
-    const fetchBlogData = async () => {
-      const response = await axios.get('/api/blog', {
-        params: {
-          id: params.id
-        }
-      })
-      setData(response.data);
-    }
-
-    useEffect(()=>{
-        fetchBlogData();;
-    },[])
+    const fetchBlogData = useCallback(async () => {
+      try {
+        const response = await axios.get('/api/blog', {
+          params: {
+            id: params.id,
+          },
+        });
+        setData(response.data);
+      } catch (error) {
+        console.error("Failed to fetch blog data:", error);
+      }
+    }, [params.id]); // Dependencies: params.id
+  
+    // Use the memoized fetchBlogData in useEffect
+    useEffect(() => {
+      fetchBlogData();
+    }, [fetchBlogData]);
 
 
   return (
