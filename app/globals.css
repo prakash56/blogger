@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-.scrollbar-hide::-webkit-scrollbar{
+/* .scrollbar-hide::-webkit-scrollbar{
     display: none;
 }
 
@@ -36,4 +36,4 @@
     margin-bottom: 10px;
     font-size: 18px;
     font-weight: 500;
-}
+} */
